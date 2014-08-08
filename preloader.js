@@ -36,7 +36,8 @@ BasicGame.Preloader.prototype = {
     this.load.spritesheet('player', 'assets/player.png', 64, 64);
     this.load.audio('explosion', ['assets/explosion.wav']);
     this.load.audio('playerExplosion', ['assets/player-explosion.wav']);
-    this.load.audio('enemyFire', ['assets/enemy-fire.wav']);
+    //this.load.audio('enemyFire', ['assets/enemy-fire.wav']);
+    this.load.audio('enemyFire', ['assets/synthetic_gunshot_2.ogg']);
     this.load.audio('playerFire', ['assets/gun_fire.wav']);
     this.load.audio('powerUp', ['assets/powerup.wav']);
     this.load.audio('bossWarning', ['assets/warning.wav']);
