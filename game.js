@@ -434,7 +434,7 @@ BasicGame.Game.prototype = {
         this.enemyBulletPool = this.add.group();
         this.enemyBulletPool.enableBody = true;
         this.enemyBulletPool.physicsBodyType = Phaser.Physics.ARCADE;
-        this.enemyBulletPool.createMultiple(100, 'bullet');
+        this.enemyBulletPool.createMultiple(100, 'enemyBullet');
         this.enemyBulletPool.setAll('anchor.x', 0.5);
         this.enemyBulletPool.setAll('anchor.y', 0.5);
         this.enemyBulletPool.setAll('outOfBoundsKill', true);
@@ -574,6 +574,7 @@ BasicGame.Game.prototype = {
 
                 // spawn left bullet slightly left off center
                 bullet.reset(this.player.x - (10 + i * 6), this.player.y - 20);
+                bullet.angle = -5 - i * 10;
 
                 // the left bullets spread from -95 degrees to -135 degrees
                 this.physics.arcade.velocityFromAngle(
@@ -586,6 +587,7 @@ BasicGame.Game.prototype = {
 
                 // spawn right bullet slightly right off center
                 bullet.reset(this.player.x + (10 + i * 6), this.player.y - 20);
+                bullet.angle = 5 + i * 10;
 
                 // the right bullets spread from -85 degrees to -45
                 this.physics.arcade.velocityFromAngle(
