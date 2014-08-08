@@ -19,8 +19,7 @@ BasicGame.Preloader.prototype = {
     this.add.text(510, 360, "Loading...", { font: "32px monospace", fill: "#fff" }).anchor.setTo(0.5, 0.5);
 
     //  This sets the preloadBar sprite as a loader sprite.
-    //  What that does is automatically crop the sprite from 0 to full-width
-    //  as the files below are loaded in.
+    //  What that does is automatically crop the sprite from 0 to full-width as the files below are loaded in.
     this.load.setPreloadSprite(this.preloadBar);
 
     //  Here we load the rest of the assets our game needs.
@@ -36,7 +35,6 @@ BasicGame.Preloader.prototype = {
     this.load.spritesheet('player', 'assets/player.png', 64, 64);
     this.load.audio('explosion', ['assets/explosion.wav']);
     this.load.audio('playerExplosion', ['assets/player-explosion.wav']);
-    //this.load.audio('enemyFire', ['assets/enemy-fire.wav']);
     this.load.audio('enemyFire', ['assets/synthetic_gunshot_2.ogg']);
     this.load.audio('playerFire', ['assets/gun_fire.wav']);
     this.load.audio('powerUp', ['assets/powerup.wav']);
@@ -47,10 +45,8 @@ BasicGame.Preloader.prototype = {
   },
 
   create: function () {
-
     //  Once the load has finished we disable the crop because we're going to sit in the update loop for a short while as the music decodes
     this.preloadBar.cropEnabled = false;
-
   },
 
   update: function () {

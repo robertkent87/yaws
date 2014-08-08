@@ -3,23 +3,6 @@ BasicGame.Game = function (game){
 };
 
 BasicGame.Game.prototype = {
-    setupDebugMode: function (){
-        this.debug_key = this.input.keyboard.addKey(Phaser.Keyboard.D);
-        this.debug_key.onDown.add(this.toggleDebugMode, this);
-    },
-
-    setupPowerUpTimer: function (){
-        this.powerup1_timer = this.time.create(false);
-        this.powerup1_remaining = 10;
-
-        this.powerup1_bar = this.add.bitmapData(100, 10);
-        this.powerup1_bar.context.fillStyle = '#fff';
-
-        //	Add the bmd as a texture to an Image object.
-        //	If we don't do this nothing will render on screen.
-        this.add.sprite(10, 540, this.powerup1_bar);
-    },
-
     create: function (){
         this.sea = this.add.tileSprite(0, 0, 1024, 768, 'sea');
 
@@ -34,6 +17,20 @@ BasicGame.Game.prototype = {
         this.setupDebugMode();
 
         this.cursors = this.input.keyboard.createCursorKeys();
+    },
+
+    setupDebugMode: function (){
+        this.debug_key = this.input.keyboard.addKey(Phaser.Keyboard.D);
+        this.debug_key.onDown.add(this.toggleDebugMode, this);
+    },
+
+    setupPowerUpTimer: function (){
+        this.powerup1_timer = this.time.create(false);
+        this.powerup1_remaining = 10;
+
+        this.powerup1_bar = this.add.bitmapData(100, 10);
+        this.powerup1_bar.context.fillStyle = '#fff';
+        this.add.sprite(10, 540, this.powerup1_bar);
     },
 
     toggleDebugMode: function (){
@@ -69,6 +66,7 @@ BasicGame.Game.prototype = {
         this.physics.arcade.overlap(
             this.player, this.powerUpPool, this.playerPowerUp, null, this
         );
+
         if (this.bossApproaching === false){
             this.physics.arcade.overlap(
                 this.bulletPool, this.bossPool, this.enemyHit, null, this
@@ -83,7 +81,6 @@ BasicGame.Game.prototype = {
         this.addToScore(powerUp.reward);
         powerUp.kill();
         this.powerUpSFX.play();
-        //this.powerUpUntil = this.time.now + 100000;
 
         if (this.weaponLevel < 5){
             this.weaponLevel++;
@@ -92,10 +89,8 @@ BasicGame.Game.prototype = {
         this.powerup1_timer.stop();
 
         this.powerup1_remaining = 10;
-
         this.powerup1_timer.loop(1000, this.updatePowerUp1Counter, this);
         this.powerup1_timer.start();
-
 
         this.drawPowerUpBar();
     },
@@ -208,12 +203,6 @@ BasicGame.Game.prototype = {
             this.ghostUntil = null;
             this.player.play('fly');
         }
-
-
-        //if (this.powerUpUntil && this.powerUpUntil < this.time.now) {
-        //    this.powerUpUntil = null;
-        //    this.weaponLevel = 0;
-        //}
 
         if (this.showReturn && this.time.now > this.showReturn){
             this.returnText = this.add.text(
@@ -640,13 +629,10 @@ BasicGame.Game.prototype = {
     },
 
     quitGame: function (pointer){
-
         //  Here you should destroy anything you no longer need.
         //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
 
         //  Then let's go back to the main menu.
         this.state.start('MainMenu');
-
     }
-
 };
