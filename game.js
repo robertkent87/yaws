@@ -626,13 +626,5 @@ BasicGame.Game.prototype = {
         this.boss.body.velocity.y = 15;
         this.boss.play('fly');
         this.bossWarning.play('', 0, 1, true);
-    },
-
-    quitGame: function (pointer){
-        //  Here you should destroy anything you no longer need.
-        //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
-
-        //  Then let's go back to the main menu.
-        this.state.start('MainMenu');
     }
 };
