@@ -5,6 +5,7 @@ BasicGame.Game = function (game) {
 BasicGame.Game.prototype = {
     create: function () {
         this.sea = this.add.tileSprite(0, 0, 1024, 768, 'sea');
+        this.setupIslands();
 
         this.setupPlayer();
         this.setupPlayerIcons();
@@ -17,6 +18,38 @@ BasicGame.Game.prototype = {
         this.setupDebugMode();
 
         this.cursors = this.input.keyboard.createCursorKeys();
+    },
+
+    setupIslands: function () {
+        this.island1Pool = this.add.group();
+        this.island1Pool.enableBody = true;
+        this.island1Pool.physicsBodyType = Phaser.Physics.ARCADE;
+
+        this.island1Pool.createMultiple(5, 'island1');
+        this.island1Pool.setAll('anchor.x', 0.5);
+        this.island1Pool.setAll('anchor.y', 0.5);
+        this.island1Pool.setAll('outOfBoundsKill', true);
+        this.island1Pool.setAll('checkWorldBounds', true);
+
+        this.nextIsland1At = 0;
+        this.nextIsland1Delay = this.getRandomInt(30, 60) * 1000;
+
+        this.island2Pool = this.add.group();
+        this.island2Pool.enableBody = true;
+        this.island2Pool.physicsBodyType = Phaser.Physics.ARCADE;
+
+        this.island2Pool.createMultiple(5, 'island2');
+        this.island2Pool.setAll('anchor.x', 0.5);
+        this.island2Pool.setAll('anchor.y', 0.5);
+        this.island2Pool.setAll('outOfBoundsKill', true);
+        this.island2Pool.setAll('checkWorldBounds', true);
+
+        this.nextIsland2At = 0;
+        this.nextIsland2Delay = this.getRandomInt(50, 80) * 1000;
+    },
+
+    getRandomInt: function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     },
 
     setupDebugMode: function () {
@@ -134,6 +167,24 @@ BasicGame.Game.prototype = {
         }
 
 
+    },
+
+    spawnIslands: function () {
+        if (this.nextIsland1At < this.time.now && this.island1Pool.countDead() > 0) {
+            this.nextIsland1At = this.time.now + this.nextIsland1Delay;
+
+            var island = this.island1Pool.getFirstExists(false);
+            island.reset(this.rnd.integerInRange(20, 1004), 0);
+            island.body.velocity.y = 10;
+        }
+
+        if (this.nextIsland2At < this.time.now && this.island2Pool.countDead() > 0) {
+            this.nextIsland2At = this.time.now + this.nextIsland2Delay;
+
+            var island = this.island2Pool.getFirstExists(false);
+            island.reset(this.rnd.integerInRange(20, 1004), 0);
+            island.body.velocity.y = 10;
+        }
     },
 
     spawnEnemies: function () {
@@ -272,6 +323,7 @@ BasicGame.Game.prototype = {
 
     update: function () {
         this.sea.tilePosition.y += 0.2;
+        this.spawnIslands();
 
         this.checkCollisions();
         this.spawnEnemies();
