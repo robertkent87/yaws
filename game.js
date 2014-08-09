@@ -291,6 +291,7 @@ BasicGame.Game.prototype = {
         if (this.bossApproaching && this.boss.y > 80) {
             this.bossApproaching = false;
             this.bossWarning.stop();
+            this.bossApproachingText.kill();
             this.boss.health = 500;
             this.boss.nextShotAt = 0;
 
@@ -706,5 +707,10 @@ BasicGame.Game.prototype = {
         this.boss.body.velocity.y = 15;
         this.boss.play('fly');
         this.bossWarning.play('', 0, 1, true);
+
+        this.bossApproachingText = this.add.sprite(510, 320, 'bossWarningText');
+        this.bossApproachingText.anchor.setTo(0.5, 0.5);
+        this.bossApproachingText.animations.add('blink', [0, 1], 4, true);
+        this.bossApproachingText.play('blink');
     }
 };
