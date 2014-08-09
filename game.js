@@ -282,7 +282,7 @@ BasicGame.Game.prototype = {
             this.returnText = this.add.text(
                 512, 400,
                 'Press Z or tap game to go back to main menu',
-                {font: '16px sans-serif', fill: '#fff'}
+                {font: '16px "8bit_wondernominal"', fill: '#fff'}
             );
             this.returnText.anchor.setTo(0.5, 0);
             this.showReturn = false;
@@ -316,7 +316,7 @@ BasicGame.Game.prototype = {
         this.endText = this.add.text(
             510, 320,
             msg,
-            {font: '72px serif', fill: '#fff'}
+            {font: '72px "8bit_wondernominal"', fill: '#fff'}
         );
         this.endText.anchor.setTo(0.5, 0);
         this.showReturn = this.time.now + 2000;
@@ -527,7 +527,7 @@ BasicGame.Game.prototype = {
         this.instructions = this.add.text(
             510, 600,
             'Use arrow keys to move, Press Z to fire\n' + 'Tapping/Clicking does both',
-            {font: '20px monospace', fill: '#fff', align: 'center'}
+            {font: '20px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
         this.instructions.anchor.setTo(0.5, 0, 5);
         this.instExpire = this.time.now + 10000;
@@ -536,7 +536,7 @@ BasicGame.Game.prototype = {
         this.scoreText = this.add.text(
             510, 30,
             '' + this.score,
-            {font: '20px monospace', fill: '#fff', align: 'center'}
+            {font: '20px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
         this.scoreText.anchor.setTo(0.5, 0.5);
 
@@ -545,7 +545,7 @@ BasicGame.Game.prototype = {
         this.debugText = this.add.text(
             510, 60,
             'Debug mode: ' + this.debug_mode,
-            {font: '20px monospace', fill: '#fff', align: 'center'}
+            {font: '20px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
         this.debugText.anchor.setTo(0.5, 0.5);
     },
