@@ -527,7 +527,7 @@ BasicGame.Game.prototype = {
         this.instructions = this.add.text(
             this.game.width/2, 600,
             'Use arrow keys to move, Press Z to fire\n' + 'Tapping/Clicking does both',
-            {font: '20px "8bit_wondernominal"', fill: '#fff', align: 'center'}
+            {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
         this.instructions.anchor.setTo(0.5, 0, 5);
         this.instExpire = this.time.now + 10000;
@@ -536,7 +536,7 @@ BasicGame.Game.prototype = {
         this.scoreText = this.add.text(
             this.game.width/2, 30,
             '' + this.score,
-            {font: '20px "8bit_wondernominal"', fill: '#fff', align: 'center'}
+            {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
         this.scoreText.anchor.setTo(0.5, 0.5);
 
@@ -545,7 +545,7 @@ BasicGame.Game.prototype = {
         this.debugText = this.add.text(
             this.game.width/2, 60,
             'Debug mode: ' + this.debug_mode,
-            {font: '20px "8bit_wondernominal"', fill: '#fff', align: 'center'}
+            {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
         this.debugText.anchor.setTo(0.5, 0.5);
     },
