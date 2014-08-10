@@ -497,7 +497,7 @@ BasicGame.Game.prototype = {
 
         this.boss = this.bossPool.getTop();
         this.bossApproaching = false;
-        this.bossInitialHealth = 10;
+        this.bossInitialHealth = 100;
     },
 
     setupBullets: function () {
