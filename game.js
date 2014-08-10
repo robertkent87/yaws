@@ -18,6 +18,7 @@ BasicGame.Game.prototype = {
         this.setupDebugMode();
 
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.gameOver = false;
     },
 
     setupIslands: function () {
@@ -170,11 +171,21 @@ BasicGame.Game.prototype = {
     },
 
     spawnIslands: function () {
+        var island1_pos = this.rnd.integerInRange(20, this.game.width / 2),
+            island2_pos = this.rnd.integerInRange(20, this.game.width / 2);
+
+        var island1_width = this.island1Pool.getFirstExists(false).width;
+
+        while (island2_pos > (island1_pos - (island1_width / 2)) && island2_pos < (island1_pos + (island1_width / 2))) {
+            island2_pos = this.rnd.integerInRange(20, this.game.width / 2);
+        }
+
+
         if (this.nextIsland1At < this.time.now && this.island1Pool.countDead() > 0) {
             this.nextIsland1At = this.time.now + this.nextIsland1Delay;
 
             var island = this.island1Pool.getFirstExists(false);
-            island.reset(this.rnd.integerInRange(20, this.game.width/2), 0);
+            island.reset(this.rnd.integerInRange(20, this.game.width / 2), 0);
             island.body.velocity.y = 10;
         }
 
@@ -182,7 +193,7 @@ BasicGame.Game.prototype = {
             this.nextIsland2At = this.time.now + this.nextIsland2Delay;
 
             var island = this.island2Pool.getFirstExists(false);
-            island.reset(this.rnd.integerInRange(20, this.game.width/2), 0);
+            island.reset(this.rnd.integerInRange(20, this.game.width / 2), 0);
             island.body.velocity.y = 10;
         }
     },
@@ -192,7 +203,7 @@ BasicGame.Game.prototype = {
             this.nextEnemyAt = this.time.now + this.enemyDelay;
 
             var enemy = this.enemyPool.getFirstExists(false);
-            enemy.reset(this.rnd.integerInRange(20, this.game.width-20), 0, this.enemyInitialHealth);
+            enemy.reset(this.rnd.integerInRange(20, this.game.width - 20), 0, this.enemyInitialHealth);
             enemy.body.velocity.y = this.rnd.integerInRange(30, 60);
             enemy.play('fly');
         }
@@ -201,10 +212,10 @@ BasicGame.Game.prototype = {
             this.nextShooterAt = this.time.now + this.shooterDelay;
 
             var shooter = this.shooterPool.getFirstExists(false);
-            shooter.reset(this.rnd.integerInRange(20, this.game.width-20), 0, this.shooterIntialHealth);
+            shooter.reset(this.rnd.integerInRange(20, this.game.width - 20), 0, this.shooterIntialHealth);
 
             // destination to fly to
-            var target = this.rnd.integerInRange(20, this.game.width-20);
+            var target = this.rnd.integerInRange(20, this.game.width - 20);
 
             // rotate & move to target
             shooter.rotation = this.physics.arcade.moveToXY(
@@ -280,7 +291,7 @@ BasicGame.Game.prototype = {
 
         if (this.showReturn && this.time.now > this.showReturn) {
             this.returnText = this.add.text(
-                this.game.width/2, 400,
+                this.game.width / 2, 400,
                 'Press Z or tap game to go back to main menu',
                 {font: '16px "8bit_wondernominal"', fill: '#fff'}
             );
@@ -292,7 +303,7 @@ BasicGame.Game.prototype = {
             this.bossApproaching = false;
             this.bossWarning.stop();
             this.bossApproachingText.kill();
-            this.boss.health = 500;
+            //this.boss.health = 500;
             this.boss.nextShotAt = 0;
 
             this.boss.body.velocity.y = 0;
@@ -307,6 +318,10 @@ BasicGame.Game.prototype = {
             return;
         }
 
+        this.bossApproachingText.kill();
+
+        this.gameOver = true;
+
         this.powerup1_timer.stop();
         this.powerup1_bar_container.kill();
         this.powerup1_bar_icon.kill();
@@ -314,7 +329,7 @@ BasicGame.Game.prototype = {
 
         var msg = win ? 'You win!' : 'Game Over';
         this.endText = this.add.text(
-            this.game.width/2, 320,
+            this.game.width / 2, 320,
             msg,
             {font: '72px "8bit_wondernominal"', fill: '#fff'}
         );
@@ -358,6 +373,8 @@ BasicGame.Game.prototype = {
 
                 var rightBullet = this.enemyBulletPool.getFirstExists(false);
                 rightBullet.reset(this.boss.x + 10 - i * 10, this.boss.y + 20);
+
+                console.log(this.boss.health);
 
                 if (this.boss.health > 250) {
                     //aim directly at player
@@ -480,7 +497,7 @@ BasicGame.Game.prototype = {
 
         this.boss = this.bossPool.getTop();
         this.bossApproaching = false;
-        this.bossInitialHealth = 30;
+        this.bossInitialHealth = 10;
     },
 
     setupBullets: function () {
@@ -525,7 +542,7 @@ BasicGame.Game.prototype = {
 
     setupText: function () {
         this.instructions = this.add.text(
-            this.game.width/2, 600,
+            this.game.width / 2, 600,
             'Use arrow keys to move, Press Z to fire\n' + 'Tapping/Clicking does both',
             {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
@@ -534,7 +551,7 @@ BasicGame.Game.prototype = {
 
         this.score = 0;
         this.scoreText = this.add.text(
-            this.game.width/2, 30,
+            this.game.width / 2, 30,
             '' + this.score,
             {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
@@ -543,7 +560,7 @@ BasicGame.Game.prototype = {
         // Debug Mode
         this.debug_mode = false;
         this.debugText = this.add.text(
-            this.game.width/2, 60,
+            this.game.width / 2, 60,
             'Debug mode: ' + this.debug_mode,
             {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
@@ -604,10 +621,9 @@ BasicGame.Game.prototype = {
         }
 
         this.nextShotAt = this.time.now + this.shotDelay;
-        this.playerFireSFX.play();
+        //this.playerFireSFX.play();
 
         var bullet;
-
 
         if (this.weaponLevel === 0) {
             if (this.bulletPool.countDead() === 0) {
@@ -616,6 +632,7 @@ BasicGame.Game.prototype = {
 
             bullet = this.bulletPool.getFirstExists(false);
             bullet.reset(this.player.x, this.player.y - 20);
+            bullet.angle = 0;
             bullet.body.velocity.y = -500;
         } else {
             if (this.bulletPool.countDead() < this.weaponLevel * 2) {
@@ -695,20 +712,20 @@ BasicGame.Game.prototype = {
         this.score += score;
         this.scoreText.text = this.score;
 
-        if (this.score >= 2000 && this.bossPool.countDead() === 1) {
+        if (this.score >= 2000 && this.bossPool.countDead() === 1 && !this.gameOver) {
             this.spawnBoss();
         }
     },
 
     spawnBoss: function () {
         this.bossApproaching = true;
-        this.boss.reset(this.game.width/2, 0, this.bossInitialHealth);
+        this.boss.reset(this.game.width / 2, 0, this.bossInitialHealth);
         this.physics.enable(this.boss, Phaser.Physics.ARCADE);
         this.boss.body.velocity.y = 15;
         this.boss.play('fly');
         this.bossWarning.play('', 0, 1, true);
 
-        this.bossApproachingText = this.add.sprite(this.game.width/2, 320, 'bossWarningText');
+        this.bossApproachingText = this.add.sprite(this.game.width / 2, 320, 'bossWarningText');
         this.bossApproachingText.anchor.setTo(0.5, 0.5);
         this.bossApproachingText.animations.add('blink', [0, 1], 4, true);
         this.bossApproachingText.play('blink');
