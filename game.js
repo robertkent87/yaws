@@ -86,6 +86,7 @@ BasicGame.Game.prototype = {
         this.bossWarning = this.add.audio('bossWarning');
 
         this.playerFireSFX.volume = 0.5;
+        this.enemyFireSFX.volume = 0.5;
     },
 
     checkCollisions: function () {
