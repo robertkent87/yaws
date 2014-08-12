@@ -84,6 +84,8 @@ BasicGame.Game.prototype = {
         this.playerFireSFX = this.add.audio('playerFire');
         this.powerUpSFX = this.add.audio('powerUp');
         this.bossWarning = this.add.audio('bossWarning');
+
+        this.playerFireSFX.volume = 0.5;
     },
 
     checkCollisions: function () {
@@ -621,7 +623,7 @@ BasicGame.Game.prototype = {
         }
 
         this.nextShotAt = this.time.now + this.shotDelay;
-        //this.playerFireSFX.play();
+        this.playerFireSFX.play();
 
         var bullet;
 
