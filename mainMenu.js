@@ -19,19 +19,9 @@ BasicGame.MainMenu.prototype = {
         this.loadingText = this.add.text(this.game.width/2, 520, "Press Z or tap game to start", {
             font: "18px '8bit_wondernominal'",
             fill: "#fff"
-        }).anchor.setTo(0.5, 0.5);
+        });
 
-        this.add.text(this.game.width/2, 680, "image assets Copyright (c) 2002 Ari Feldman", {
-            font: "12px '8bit_wondernominal'",
-            fill: "#fff",
-            align: "center"
-        }).anchor.setTo(0.5, 0.5);
-
-        this.add.text(this.game.width/2, 700, "sound assets Copyright (c) 2012 - 2013 Devin Watson", {
-            font: "12px '8bit_wondernominal'",
-            fill: "#fff",
-            align: "center"
-        }).anchor.setTo(0.5, 0.5);
+        this.loadingText.anchor.setTo(Math.round(this.loadingText.width * 0.5) / this.loadingText.width, 0.5);
 
     },
 

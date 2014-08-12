@@ -553,28 +553,37 @@ BasicGame.Game.prototype = {
     setupText: function (){
         this.instructions = this.add.text(
             this.game.width / 2, 600,
-            'Use arrow keys to move, Press Z to fire\n' + 'Tapping/Clicking does both',
-            {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
+            'Use arrow keys to move, Press Z to fire\n' + 'Tapping or Clicking does both',
+            {font: '15px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
-        this.instructions.anchor.setTo(0.5, 0, 5);
+        this.instructions.anchor.setTo(Math.round(this.instructions.width * 0.5) / this.instructions.width, 0, 5);
+        this.instructions.stroke = '#000000';
+        this.instructions.strokeThickness = 2;
+        this.instructions.setShadow(2, 2, 'rgba(0,0,0,0.5)', 2);
         this.instExpire = this.time.now + 10000;
 
         this.score = 0;
         this.scoreText = this.add.text(
             this.game.width / 2, 30,
             '' + this.score,
-            {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
+            {font: '15px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
-        this.scoreText.anchor.setTo(0.5, 0.5);
+        this.scoreText.anchor.setTo(Math.round(this.scoreText.width * 0.5) / this.scoreText.width, 0.5);
+        this.scoreText.stroke = '#000000';
+        this.scoreText.strokeThickness = 2;
+        this.scoreText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 2);
 
         // Debug Mode
         this.debug_mode = false;
         this.debugText = this.add.text(
             this.game.width / 2, 60,
             'Debug mode: ' + this.debug_mode,
-            {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
+            {font: '15px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
-        this.debugText.anchor.setTo(0.5, 0.5);
+        this.debugText.anchor.setTo(Math.round(this.debugText.width * 0.5) / this.debugText.width, 0.5);
+        this.debugText.stroke = '#000000';
+        this.debugText.strokeThickness = 2;
+        this.debugText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 2);
     },
 
     render: function (){
