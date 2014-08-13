@@ -567,6 +567,8 @@ BasicGame.Game.prototype = {
         this.explosionPool.createMultiple(100, 'explosion');
         this.explosionPool.setAll('anchor.x', 0.5);
         this.explosionPool.setAll('anchor.y', 0.5);
+        this.explosionPool.setAll('scale.x', 1.5);
+        this.explosionPool.setAll('scale.y', 1.5);
 
         this.explosionPool.forEach(function (explosion){
             explosion.animations.add('boom');
