@@ -299,10 +299,14 @@ BasicGame.Game.prototype = {
         if (this.showReturn && this.time.now > this.showReturn){
             this.returnText = this.add.text(
                 this.game.width / 2, 400,
-                'Press Z or tap game to go back to main menu',
-                {font: '16px "8bit_wondernominal"', fill: '#fff'}
+                'Press Z or tap game \nto go back to main menu',
+                {font: '16px "8bit_wondernominal"', fill: '#fff', align: 'center'}
             );
-            this.returnText.anchor.setTo(0.5, 0);
+            this.returnText.anchor.setTo(Math.round(this.returnText.width * 0.5) / this.returnText.width, 0);
+            this.returnText.stroke = '#000000';
+            this.returnText.strokeThickness = 2;
+            this.returnText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 2);
+
             this.showReturn = false;
         }
 
@@ -337,13 +341,16 @@ BasicGame.Game.prototype = {
         this.powerup1_bar_icon.kill();
         this.powerup1_bar.context.clearRect(0, 0, this.powerup1_bar.width, this.powerup1_bar.height);
 
-        var msg = win ? 'You win!' : 'Game Over';
+        var msg = win ? 'You win' : 'Game Over';
         this.endText = this.add.text(
             this.game.width / 2, 320,
             msg,
-            {font: '72px "8bit_wondernominal"', fill: '#fff'}
+            {font: '60px "8bit_wondernominal"', fill: '#fff'}
         );
-        this.endText.anchor.setTo(0.5, 0);
+        this.endText.anchor.setTo(Math.round(this.endText.width * 0.5) / this.endText.width, 0);
+        this.endText.stroke = '#000000';
+        this.endText.strokeThickness = 5;
+        this.endText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
         this.showReturn = this.time.now + 2000;
     },
 
@@ -556,7 +563,7 @@ BasicGame.Game.prototype = {
             'Use arrow keys to move, Press Z to fire\n' + 'Tapping or Clicking does both',
             {font: '15px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
-        this.instructions.anchor.setTo(Math.round(this.instructions.width * 0.5) / this.instructions.width, 0, 5);
+        this.instructions.anchor.setTo(Math.round(this.instructions.width * 0.5) / this.instructions.width, 1);
         this.instructions.stroke = '#000000';
         this.instructions.strokeThickness = 2;
         this.instructions.setShadow(2, 2, 'rgba(0,0,0,0.5)', 2);
@@ -568,7 +575,7 @@ BasicGame.Game.prototype = {
             '' + this.score,
             {font: '15px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
-        this.scoreText.anchor.setTo(Math.round(this.scoreText.width * 0.5) / this.scoreText.width, 0.5);
+        this.scoreText.anchor.setTo(Math.round(this.scoreText.width * 0.5) / this.scoreText.width, 1);
         this.scoreText.stroke = '#000000';
         this.scoreText.strokeThickness = 2;
         this.scoreText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 2);
@@ -580,7 +587,7 @@ BasicGame.Game.prototype = {
             'Debug mode: ' + this.debug_mode,
             {font: '15px "8bit_wondernominal"', fill: '#fff', align: 'center'}
         );
-        this.debugText.anchor.setTo(Math.round(this.debugText.width * 0.5) / this.debugText.width, 0.5);
+        this.debugText.anchor.setTo(Math.round(this.debugText.width * 0.5) / this.debugText.width, 1);
         this.debugText.stroke = '#000000';
         this.debugText.strokeThickness = 2;
         this.debugText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 2);
