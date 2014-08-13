@@ -437,7 +437,7 @@ BasicGame.Game.prototype = {
 
         this.lives = this.add.group();
         for (var i = 0; i < 3; i++){
-            var life = this.lives.create(924 + (30 * i), 30, 'player');
+            var life = this.lives.create(480 + (30 * i), 30, 'player');
             life.scale.setTo(0.5, 0.5);
             life.anchor.setTo(0.5, 0.5);
         }
