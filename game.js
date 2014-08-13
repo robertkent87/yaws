@@ -291,6 +291,17 @@ BasicGame.Game.prototype = {
             this.instructions.destroy();
         }
 
+        if (this.bossApproachingText && this.bossApproachingText.exists && this.time.now > this.bossApproachingTextBlink){
+            this.bossApproachingTextBlink = this.time.now + 350;
+
+            // toggle opacity
+            if (this.bossApproachingText.alpha == 1){
+                this.bossApproachingText.alpha = 0;
+            } else {
+                this.bossApproachingText.alpha = 1;
+            }
+        }
+
         if (this.ghostUntil && this.ghostUntil < this.time.now){
             this.ghostUntil = null;
             this.player.play('fly');
@@ -313,7 +324,7 @@ BasicGame.Game.prototype = {
         if (this.bossApproaching && this.boss.y > 80){
             this.bossApproaching = false;
             this.bossWarning.stop();
-            this.bossApproachingText.kill();
+            this.bossApproachingText.destroy();
             //this.boss.health = 500;
             this.boss.nextShotAt = 0;
 
@@ -330,7 +341,7 @@ BasicGame.Game.prototype = {
         }
 
         if (this.bossApproachingText && this.bossApproachingText.exists){
-            this.bossApproachingText.kill();
+            this.bossApproachingText.destroy();
         }
 
         this.gameOver = true;
@@ -751,9 +762,16 @@ BasicGame.Game.prototype = {
         this.boss.play('fly');
         this.bossWarning.play('', 0, 1, true);
 
-        this.bossApproachingText = this.add.sprite(this.game.width / 2, 320, 'bossWarningText');
-        this.bossApproachingText.anchor.setTo(0.5, 0.5);
-        this.bossApproachingText.animations.add('blink', [0, 1], 4, true);
-        this.bossApproachingText.play('blink');
+
+        this.bossApproachingText = this.add.text(
+            this.game.width / 2, 320,
+            'Boss Approaching',
+            {font: '30px "8bit_wondernominal"', fill: '#fff', align: 'center'}
+        );
+        this.bossApproachingText.anchor.setTo(Math.round(this.bossApproachingText.width * 0.5) / this.bossApproachingText.width, 1);
+        this.bossApproachingText.stroke = '#000000';
+        this.bossApproachingText.strokeThickness = 3;
+        this.bossApproachingText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 3);
+        this.bossApproachingTextBlink = this.time.now + 350;
     }
 };
