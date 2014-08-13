@@ -85,6 +85,7 @@ BasicGame.Game.prototype = {
         this.powerUpSFX = this.add.audio('powerUp');
         this.bossWarning = this.add.audio('bossWarning');
         this.gameMusic = this.add.audio('gameMusic');
+        this.victoryMusic = this.add.audio('victoryMusic');
 
         this.playerFireSFX.volume = 0.5;
         this.enemyFireSFX.volume = 0.5;
@@ -346,6 +347,10 @@ BasicGame.Game.prototype = {
 
         this.gameOver = true;
         this.gameMusic.stop();
+
+        if (win) {
+            this.victoryMusic.play();
+        }
 
         this.powerup1_timer.stop();
         this.powerup1_bar_container.kill();
