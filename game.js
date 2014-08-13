@@ -464,6 +464,8 @@ BasicGame.Game.prototype = {
         this.enemyPool.enableBody = true;
         this.enemyPool.physicsBodyType = Phaser.Physics.ARCADE;
 
+        // TODO set enemy hitbox
+
         this.enemyPool.createMultiple(50, 'greenEnemy');
         this.enemyPool.setAll('anchor.x', 0.5);
         this.enemyPool.setAll('anchor.y', 0.5);
@@ -573,6 +575,20 @@ BasicGame.Game.prototype = {
         this.explosionPool.forEach(function (explosion){
             explosion.animations.add('boom');
         });
+
+        this.smallExplosionPool = this.add.group();
+        this.smallExplosionPool.enableBody = true;
+        this.smallExplosionPool.physicsBodyType = Phaser.Physics.ARCADE;
+
+        this.smallExplosionPool.createMultiple(100, 'explosion');
+        this.smallExplosionPool.setAll('anchor.x', 0.5);
+        this.smallExplosionPool.setAll('anchor.y', 0.5);
+        this.smallExplosionPool.setAll('scale.x', 0.5);
+        this.smallExplosionPool.setAll('scale.y', 0.5);
+
+        this.smallExplosionPool.forEach(function (explosion){
+            explosion.animations.add('boom');
+        });
     },
 
     setupText: function (){
@@ -621,6 +637,19 @@ BasicGame.Game.prototype = {
         }
 
         var explosion = this.explosionPool.getFirstExists(false);
+        explosion.reset(sprite.x, sprite.y);
+        explosion.play('boom', 15, false, true);
+
+        explosion.body.velocity.x = sprite.body.velocity.x;
+        explosion.body.velocity.y = sprite.body.velocity.y;
+    },
+
+    smallExplode: function (sprite){
+        if (this.smallExplosionPool.countDead() === 0){
+            return
+        }
+
+        var explosion = this.smallExplosionPool.getFirstExists(false);
         explosion.reset(sprite.x, sprite.y);
         explosion.play('boom', 15, false, true);
 
@@ -714,7 +743,10 @@ BasicGame.Game.prototype = {
     },
 
     enemyHit: function (bullet, enemy){
+        bullet.body.velocity.y = enemy.body.velocity.y;
+        bullet.body.velocity.x = 0;
         bullet.kill();
+        this.smallExplode(bullet);
         this.damageEnemy(enemy, 1);
     },
 
