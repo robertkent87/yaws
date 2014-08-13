@@ -22,6 +22,8 @@ BasicGame.MainMenu.prototype = {
         });
 
         this.loadingText.anchor.setTo(Math.round(this.loadingText.width * 0.5) / this.loadingText.width, 0.5);
+        this.loadingText.stroke = '#000000';
+        this.loadingText.strokeThickness = 2;
 
     },
 
